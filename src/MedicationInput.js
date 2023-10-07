@@ -6,45 +6,31 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
   Box,
   Container,
   Paper,
   Typography,
-  Stack,
 } from '@mui/material';
-// import AdapterDateFns from '@mui/lab/AdapterDateFns';
-// import LocalizationProvider from '@mui/lab/LocalizationProvider';
-// import DesktopTimePicker from '@mui/lab/DesktopTimePicker';
-// import { DesktopTimePicker } from '@mui/x-date-pickers';
+
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker, DatePicker, DateTimePicker } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 export default function MedicationInput() {
-  const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
   const [medication, setMedication] = useState({
     name: '',
     description: '',
-    time: new Date(), // This will now represent both date and time
+    time: new Date(), // Represents both date and time
     picture: null,
     frequency: 'daily',
+    phoneNumber: '',
   });
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setMedication(prev => ({ ...prev, [name]: value }));
   };
-  // const handleDateChange = newDate => {
-  //   setMedication(prev => ({ ...prev, date: newDate }));
-  // };
 
-  // const handleTimeChange = newTime => {
-  //   setMedication(prev => ({ ...prev, time: newTime }));
-  // };
   const handleDateTimeChange = newDateTime => {
     setMedication(prev => ({ ...prev, time: newDateTime }));
   };
@@ -52,11 +38,15 @@ export default function MedicationInput() {
     const file = event.target.files[0];
     setMedication(prev => ({ ...prev, picture: file }));
   };
+  const handlePhoneChange = event => {
+    const { value } = event.target;
+    setMedication(prev => ({ ...prev, phoneNumber: value }));
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
 
-    // Convert the date object to a string before sending
+    // Converting the date object to a string before sending
     medication.time = medication.time.toISOString();
     console.log(medication);
     try {
@@ -71,16 +61,17 @@ export default function MedicationInput() {
       const responseData = await response.json();
       console.log(responseData.message);
 
-      // Maybe reset the form or provide a success message to the user
+      // Resetting the form
       setMedication({
         name: '',
         description: '',
         time: new Date(),
         frequency: 'daily',
+        phoneNumber: '',
       });
     } catch (error) {
       console.error('There was an error sending the medication data:', error);
-      // Maybe provide an error message to the user
+      // Providing an error message to the user
     }
   };
 
@@ -95,6 +86,22 @@ export default function MedicationInput() {
         Please enter the medication details
       </Typography>
       <form onSubmit={handleSubmit}>
+        <Box m={2}>
+          <TextField
+            fullWidth
+            name="phoneNumber"
+            label="Phone Number"
+            variant="outlined"
+            value={medication.phoneNumber}
+            onChange={handlePhoneChange} // Or handlePhoneChange if you'd prefer a separate handler
+            type="tel" // Tells browsers to optimize the keyboard for phone number input
+            inputProps={{
+              pattern: '\\d*', // Ensures only numbers can be entered
+              maxLength: 15, // Limits the length to 15 digits which should be sufficient for international numbers
+            }}
+          />
+        </Box>
+
         <Box m={2}>
           <TextField
             fullWidth
@@ -116,31 +123,9 @@ export default function MedicationInput() {
             onChange={handleInputChange}
           />
         </Box>
-        {/* <Box m={2}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Medication Date"
-              inputFormat="MM/dd/yyyy"
-              value={medication.date}
-              onChange={handleDateChange}
-              renderInput={params => (
-                <TextField {...params} fullWidth variant="outlined" />
-              )}
-            />
-          </LocalizationProvider>
-        </Box> */}
+
         <Box m={2}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            {/* <Stack spacing={3}>
-              <TimePicker
-                label="Medication Timing"
-                inputFormat="hh:mm a"
-                value={medication.time}
-                onChange={handleTimeChange}
-                renderInput={params => (
-                  <TextField {...params} fullWidth variant="outlined" />
-                )}
-              /> */}
             <DateTimePicker
               label="Medication Date & Time"
               inputFormat="MM/dd/yyyy hh:mm a"
@@ -150,7 +135,6 @@ export default function MedicationInput() {
                 <TextField {...params} fullWidth variant="outlined" />
               )}
             />
-            {/* </Stack> */}
           </LocalizationProvider>
         </Box>
 
