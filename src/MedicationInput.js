@@ -93,11 +93,11 @@ export default function MedicationInput() {
             label="Phone Number"
             variant="outlined"
             value={medication.phoneNumber}
-            onChange={handlePhoneChange} // Or handlePhoneChange if you'd prefer a separate handler
-            type="tel" // Tells browsers to optimize the keyboard for phone number input
+            onChange={handlePhoneChange}
+            type="tel"
             inputProps={{
-              pattern: '\\d*', // Ensures only numbers can be entered
-              maxLength: 15, // Limits the length to 15 digits which should be sufficient for international numbers
+              pattern: '\\d*',
+              maxLength: 15,
             }}
           />
         </Box>

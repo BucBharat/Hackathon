@@ -15,20 +15,18 @@ const base64Credentials = Buffer.from(
   'MAOTHIODFMOWUTZMFLZS:MTEzMjI5Y2EtNTkxOS00ZDBjLWE2YjItNTM3MGYy'
 ).toString('base64');
 
-let unsentRemindersDummyData = [
-  // initial dummy data can stay here
-];
+let unsentRemindersDummyData = [];
 
 app.post('/add-medication', (req, res) => {
   const { name, description, time, phoneNumber } = req.body;
 
-  // Ensure required data is available
+  // Ensuring required data is available
   if (!name || !description || !time) {
     return res.status(400).json({ error: 'Required data missing' });
   }
 
   const newReminder = {
-    phoneNumber: phoneNumber, // You might want to receive this from frontend in the future
+    phoneNumber: phoneNumber,
     message: `It's time to take ${name}. Description: ${description}`,
     reminderTime: new Date(time),
     isSent: false,
@@ -44,14 +42,12 @@ app.post('/add-medication', (req, res) => {
 cron.schedule('* * * * * *', async () => {
   console.log('Cron job started!');
   const now = new Date();
-  const BUFFER_TIME = 3000; // 60 seconds buffer
+  const BUFFER_TIME = 3000; // 3 seconds buffer
   const unsentReminders = unsentRemindersDummyData.filter(reminder => {
     const timeDifference = Math.abs(reminder.reminderTime - now);
     return timeDifference <= BUFFER_TIME && !reminder.isSent;
   });
-  //   const unsentReminders = unsentRemindersDummyData.filter(
-  //     reminder => reminder.reminderTime <= new Date() && !reminder.isSent
-  //   );
+
   console.log('Current time:', now);
 
   unsentRemindersDummyData.forEach(reminder => {
