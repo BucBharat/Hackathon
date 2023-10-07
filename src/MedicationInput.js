@@ -99,6 +99,7 @@ export default function MedicationInput() {
               pattern: '\\d*',
               maxLength: 15,
             }}
+            helperText="Please include the international code"
           />
         </Box>
 
