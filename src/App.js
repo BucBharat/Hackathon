@@ -1,11 +1,17 @@
 import logo from './logo.svg';
+import { Button, Typography } from '@mui/material';
 import './App.css';
-
+import UserDashboard from './UserDashboard';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <UserDashboard />
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <Typography variant="h4">Welcome to React with Material-UI</Typography>
+        <Button variant="contained" color="primary">
+          Click me!
+        </Button>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -17,7 +23,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
