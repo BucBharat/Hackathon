@@ -1,30 +1,19 @@
-import logo from './logo.svg';
-import { Button, Typography } from '@mui/material';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
 import UserDashboard from './UserDashboard';
+
 function App() {
   return (
-    <div className="App">
-      <UserDashboard />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Typography variant="h4">Welcome to React with Material-UI</Typography>
-        <Button variant="contained" color="primary">
-          Click me!
-        </Button>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/" element={<LoginScreen />} />
+      </Routes>
+    </Router>
   );
 }
 
