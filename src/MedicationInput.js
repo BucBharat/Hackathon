@@ -114,100 +114,112 @@ export default function MedicationInput() {
   };
 
   return (
-    <Container
-      component={Paper}
-      maxWidth="sm"
-      elevation={3}
-      style={{ padding: '20px', marginTop: '20px' }}
-    >
-      <Typography variant="h5" style={{ marginBottom: '20px' }}>
-        Please enter the medication details
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Box m={2}>
-          <TextField
-            fullWidth
-            name="phoneNumber"
-            label="Phone Number"
-            variant="outlined"
-            value={medication.phoneNumber}
-            onChange={handlePhoneChange}
-            type="tel"
-            inputProps={{
-              pattern: '\\d*',
-              maxLength: 15,
-            }}
-            helperText="Please include the international code"
-          />
-        </Box>
-
-        <Box m={2}>
-          <TextField
-            fullWidth
-            name="name"
-            label="Medication Name"
-            variant="outlined"
-            value={medication.name}
-            onChange={handleInputChange}
-          />
-        </Box>
-
-        <Box m={2}>
-          <TextField
-            fullWidth
-            name="description"
-            label="Description"
-            variant="outlined"
-            value={medication.description}
-            onChange={handleInputChange}
-          />
-        </Box>
-
-        <Box m={2}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker
-              label="Medication Date & Time"
-              inputFormat="MM/dd/yyyy hh:mm a"
-              value={medication.time}
-              onChange={handleDateTimeChange}
-              renderInput={params => (
-                <TextField {...params} fullWidth variant="outlined" />
-              )}
+    <div style={{ minHeight: '100vh' }}>
+      <Container
+        component={Paper}
+        maxWidth="sm"
+        elevation={3}
+        style={{
+          padding: '20px',
+          marginTop: '20px',
+        }}
+      >
+        <Typography
+          variant="h5"
+          style={{
+            fontWeight: 500,
+            marginBottom: '20px',
+            fontFamily: 'Raleway, sans-serif',
+          }}
+        >
+          Please enter the medication details
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Box m={2}>
+            <TextField
+              fullWidth
+              name="phoneNumber"
+              label="Phone Number"
+              variant="outlined"
+              value={medication.phoneNumber}
+              onChange={handlePhoneChange}
+              type="tel"
+              inputProps={{
+                pattern: '\\d*',
+                maxLength: 15,
+              }}
+              helperText="Please include the international code"
             />
-          </LocalizationProvider>
-        </Box>
+          </Box>
 
-        <Box m={2}>
-          <div>
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload</button>
-            {mediaUrl && <div>File uploaded successfully</div>}
-          </div>
-        </Box>
-
-        <Box m={2}>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Reminder Frequency</InputLabel>
-            <Select
-              name="frequency"
-              value={medication.frequency}
+          <Box m={2}>
+            <TextField
+              fullWidth
+              name="name"
+              label="Medication Name"
+              variant="outlined"
+              value={medication.name}
               onChange={handleInputChange}
-              label="Reminder Frequency"
-            >
-              <MenuItem value="daily">Daily</MenuItem>
-              <MenuItem value="6-hours">Every 6 hours</MenuItem>
-              <MenuItem value="12-hours">Every 12 hours</MenuItem>
-              <MenuItem value="weekly">Weekly</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+            />
+          </Box>
 
-        <Box m={2}>
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-        </Box>
-      </form>
-    </Container>
+          <Box m={2}>
+            <TextField
+              fullWidth
+              name="description"
+              label="Description"
+              variant="outlined"
+              value={medication.description}
+              onChange={handleInputChange}
+            />
+          </Box>
+
+          <Box m={2}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                label="Medication Date & Time"
+                inputFormat="MM/dd/yyyy hh:mm a"
+                value={medication.time}
+                onChange={handleDateTimeChange}
+                renderInput={params => (
+                  <TextField {...params} fullWidth variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
+          </Box>
+
+          <Box m={2}>
+            <div>
+              <input type="file" onChange={handleFileChange} />
+              <button onClick={handleUpload}>Upload</button>
+              {mediaUrl && <div>File uploaded successfully</div>}
+            </div>
+          </Box>
+
+          <Box m={2}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Reminder Frequency</InputLabel>
+              <Select
+                name="frequency"
+                value={medication.frequency}
+                onChange={handleInputChange}
+                label="Reminder Frequency"
+              >
+                <MenuItem value="daily">Daily</MenuItem>
+                <MenuItem value="6-hours">Every 6 hours</MenuItem>
+                <MenuItem value="12-hours">Every 12 hours</MenuItem>
+                <MenuItem value="weekly">Weekly</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box m={2}>
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </Container>
+    </div>
   );
 }

@@ -30,6 +30,7 @@ function Register() {
 
   return (
     <section id="entry-page">
+      <h1 className="app-title">AgelessAid</h1>
       <form>
         <h2>Join Us!</h2>
         <fieldset>

@@ -130,6 +130,25 @@ p {
     background-position: 0% 50%;
   }
 }
+#entry-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Horizontal centering
+  justify-content: flex-start; // Start from the top
+  min-height: 100vh; // Fill the viewport height
+  padding-top: 2rem; // Some space from the top edge of the viewport
+}
+.app-title {
+  font-size: 3rem; // Increase font size
+  color: #fff; // Set text color to white
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); // Add a text shadow for depth
+  background: linear-gradient(45deg, #fe6b8b, #ff8e53); // Background gradient
+  display: inline-block; // To apply padding and background only around the text
+  padding: 10px 20px; // Padding around the text
+  border-radius: 8px; // Rounded corners
+  margin-bottom: 1rem; // Some margin to space it from the content below
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3); // A soft box shadow
+}
 
 // #entry-page ul {
 //   list-style-type: none;

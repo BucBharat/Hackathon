@@ -26,13 +26,13 @@ export function ViewMedications() {
         variant="h3"
         gutterBottom
         style={{
-          fontWeight: 700,
+          fontWeight: 200,
           background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
           color: 'white',
           padding: '10px 20px',
           borderRadius: '8px',
           boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-          fontFamily: "'Roboto Slab', serif", // if you've imported a different font, use that instead
+          fontFamily: "'Belleza', serif", // if you've imported a different font, use that instead
         }}
       >
         Your Medications
