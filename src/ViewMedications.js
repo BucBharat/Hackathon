@@ -45,7 +45,7 @@ export function ViewMedications() {
                     {med.description}
                   </Typography>
                   <Typography variant="body1" style={{ marginTop: '10px' }}>
-                    Time: <strong>{med.time}</strong>
+                    Time: <strong>{med.time.toLocaleTimeString()}</strong>
                   </Typography>
                   <Typography variant="body1" style={{ marginTop: '5px' }}>
                     Frequency: <strong>{med.frequency}</strong>

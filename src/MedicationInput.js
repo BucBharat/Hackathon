@@ -75,10 +75,6 @@ export default function MedicationInput() {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    // Converting the date object to a string before sending
-    // medication.time = medication.time.toISOString();
-    // medication.mediaUrl = mediaUrl;
-    // const updatedMedication = { ...medication, mediaUrl };
     const updatedTime = medication.time.toISOString();
     const updatedMedication = { ...medication, time: updatedTime };
     updatedMedication.mediaUrl = mediaUrl;
@@ -110,7 +106,7 @@ export default function MedicationInput() {
       setMediaUrl('');
       // setFile(null);
       // onAdd(medication);
-      addMedication(medication);
+      addMedication(updatedMedication);
     } catch (error) {
       console.error('There was an error sending the medication data:', error);
       // Providing an error message to the user
