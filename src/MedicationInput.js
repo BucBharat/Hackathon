@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   TextField,
   Button,
@@ -15,8 +15,9 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
-
+import MedicationContext from './MedicationContext';
 export default function MedicationInput() {
+  const { addMedication } = useContext(MedicationContext);
   const [medication, setMedication] = useState({
     name: '',
     description: '',
@@ -49,6 +50,8 @@ export default function MedicationInput() {
     // Converting the date object to a string before sending
     medication.time = medication.time.toISOString();
     console.log(medication);
+    // console.log(onAdd);
+
     try {
       const response = await fetch('http://localhost:5000/add-medication', {
         method: 'POST',
@@ -69,6 +72,8 @@ export default function MedicationInput() {
         frequency: 'daily',
         phoneNumber: '',
       });
+      // onAdd(medication);
+      addMedication(medication);
     } catch (error) {
       console.error('There was an error sending the medication data:', error);
       // Providing an error message to the user
