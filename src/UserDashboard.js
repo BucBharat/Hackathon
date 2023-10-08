@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Tabs, Tab, Box } from '@mui/material';
 import MedicationInput from './MedicationInput';
-import UploadComponent from './UploadComponent';
+import { Notifs } from './Notifs';
 import { ViewMedications } from './ViewMedications';
 function TabPanel({ children, value, index }) {
   return value === index ? <Box p={3}>{children}</Box> : null;
@@ -28,7 +28,11 @@ export default function UserDashboard() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: '#71C9CE',
+      }}
+    >
       <AppBar position="static" style={appBarStyle}>
         <Tabs value={tabValue} onChange={handleTabChange}>
           <Tab
@@ -53,7 +57,7 @@ export default function UserDashboard() {
         <MedicationInput />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <UploadComponent />
+        <Notifs />
       </TabPanel>
     </div>
   );
