@@ -10,10 +10,11 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json()); // Parses incoming JSON data
 const PORT = 5500;
-
-const base64Credentials = Buffer.from(
-  'MAOTHIODFMOWUTZMFLZS:MTEzMjI5Y2EtNTkxOS00ZDBjLWE2YjItNTM3MGYy'
-).toString('base64');
+const username = '';
+const password = '';
+const base64Credentials = Buffer.from(`${username}:${password}`).toString(
+  'base64'
+);
 
 let unsentRemindersDummyData = [
   // initial dummy data can stay here
@@ -74,7 +75,7 @@ cron.schedule('* * * * * *', async () => {
 
     try {
       const response = await axios.post(
-        'https://api.plivo.com/v1/Account/MAOTHIODFMOWUTZMFLZS/Message/',
+        'https://api.plivo.com/v1/Account/${username}/Message/',
         {
           src: '1234567890',
           dst: reminder.phoneNumber,
