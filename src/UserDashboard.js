@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Tabs,
-  Tab,
-  Card,
-  CardContent,
-  Typography,
-  Box,
-} from '@mui/material';
+import { AppBar, Tabs, Tab, Box } from '@mui/material';
 import MedicationInput from './MedicationInput';
+import UploadComponent from './UploadComponent';
 import { ViewMedications } from './ViewMedications';
 function TabPanel({ children, value, index }) {
   return value === index ? <Box p={3}>{children}</Box> : null;
@@ -60,14 +53,8 @@ export default function UserDashboard() {
         <MedicationInput />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        Notifications List Here
+        <UploadComponent />
       </TabPanel>
-      <Card>
-        <CardContent>
-          <Typography variant="h6">John Doe</Typography>
-          <Typography color="textSecondary">johndoe@example.com</Typography>
-        </CardContent>
-      </Card>
     </div>
   );
 }

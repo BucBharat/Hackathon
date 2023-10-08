@@ -18,6 +18,8 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import MedicationContext from './MedicationContext';
 export default function MedicationInput() {
   const { addMedication } = useContext(MedicationContext);
+  const [file, setFile] = useState(null);
+  const [mediaUrl, setMediaUrl] = useState('');
   const [medication, setMedication] = useState({
     name: '',
     description: '',
@@ -25,8 +27,11 @@ export default function MedicationInput() {
     picture: null,
     frequency: 'daily',
     phoneNumber: '',
+    mediaUrl: '',
   });
-
+  const handleFileChange = e => {
+    setFile(e.target.files[0]);
+  };
   const handleInputChange = event => {
     const { name, value } = event.target;
     setMedication(prev => ({ ...prev, [name]: value }));
@@ -35,30 +40,59 @@ export default function MedicationInput() {
   const handleDateTimeChange = newDateTime => {
     setMedication(prev => ({ ...prev, time: newDateTime }));
   };
-  const handleFileChange = event => {
-    const file = event.target.files[0];
-    setMedication(prev => ({ ...prev, picture: file }));
-  };
+  // const handleFileChange = event => {
+  //   const file = event.target.files[0];
+  //   setMedication(prev => ({ ...prev, picture: file }));
+  // };
   const handlePhoneChange = event => {
     const { value } = event.target;
     setMedication(prev => ({ ...prev, phoneNumber: value }));
   };
+  const handleUpload = async event => {
+    event.preventDefault();
+    if (!file) return;
 
+    try {
+      const response = await fetch('http://localhost:5000/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type, // e.g., 'image/jpeg' or 'application/pdf'
+          'X-File-Name': file.name,
+        },
+        body: file,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setMediaUrl(data.mediaUrl);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
   const handleSubmit = async event => {
     event.preventDefault();
 
     // Converting the date object to a string before sending
-    medication.time = medication.time.toISOString();
+    // medication.time = medication.time.toISOString();
+    // medication.mediaUrl = mediaUrl;
+    // const updatedMedication = { ...medication, mediaUrl };
+    const updatedTime = medication.time.toISOString();
+    const updatedMedication = { ...medication, time: updatedTime };
+    updatedMedication.mediaUrl = mediaUrl;
+    console.log(updatedMedication);
     console.log(medication);
     // console.log(onAdd);
 
     try {
-      const response = await fetch('http://localhost:5000/add-medication', {
+      const response = await fetch('http://localhost:5500/add-medication', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(medication),
+        body: JSON.stringify(updatedMedication),
       });
 
       const responseData = await response.json();
@@ -71,7 +105,10 @@ export default function MedicationInput() {
         time: new Date(),
         frequency: 'daily',
         phoneNumber: '',
+        mediaUrl: '',
       });
+      setMediaUrl('');
+      // setFile(null);
       // onAdd(medication);
       addMedication(medication);
     } catch (error) {
@@ -145,10 +182,11 @@ export default function MedicationInput() {
         </Box>
 
         <Box m={2}>
-          <Button variant="contained" component="label">
-            Upload Medication Picture
-            <input type="file" hidden onChange={handleFileChange} />
-          </Button>
+          <div>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleUpload}>Upload</button>
+            {mediaUrl && <div>File uploaded successfully</div>}
+          </div>
         </Box>
 
         <Box m={2}>
