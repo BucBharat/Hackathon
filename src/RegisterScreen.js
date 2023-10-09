@@ -8,24 +8,56 @@ import {
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+// The Register component renders a registration form and handles user registration.
 function Register() {
+  // State to store user details (name, email, and password).
   const [userDetails, setUserDetails] = useState({
     name: '',
     email: '',
     password: '',
   });
+
+  // Hook to programmatically navigate to different routes.
   const navigate = useNavigate();
+
+  // Handler to update the state based on input changes.
   const handleInputChange = event => {
     const { name, value } = event.target;
     setUserDetails(prev => ({ ...prev, [name]: value }));
   };
+
+  // Function to navigate to the login page.
   const redirectToLogin = () => {
     navigate('/login');
   };
-  const handleSubmit = event => {
+
+  // Handler for form submission.
+  const handleSubmit = async event => {
     event.preventDefault();
-    // Add registration logic here...
-    navigate('/dashboard');
+
+    // Making an API call to register the user.
+    try {
+      const response = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userDetails),
+      });
+
+      if (response.status === 200) {
+        // Navigate to the dashboard upon successful registration.
+        navigate('/dashboard');
+      } else {
+        // Log any error messages sent from the server.
+        const data = await response.json();
+        console.error('Registration error:', data.error);
+      }
+    } catch (error) {
+      // Handle potential network or server errors.
+      console.error('Error:', error);
+    }
   };
 
   return (

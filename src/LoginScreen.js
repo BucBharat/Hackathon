@@ -1,20 +1,57 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './loginScreenStyles.scss';
+
+// The LoginScreen component is responsible for rendering the login form and handling user authentication.
 function LoginScreen() {
+  // State to store user credentials (email and password).
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+
+  // Hook to programmatically navigate to different routes.
   const navigate = useNavigate();
 
+  // Handler to update the state based on input changes.
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCredentials(prev => ({ ...prev, [name]: value }));
   };
+
+  // Function to navigate to the register page.
   const redirectToRegister = () => {
     navigate('/register');
   };
-  const handleSubmit = event => {
+
+  // State to handle and display any error messages.
+  const [error, setError] = useState(null);
+
+  // Handler for form submission.
+  const handleSubmit = async event => {
     event.preventDefault();
-    navigate('/dashboard');
+
+    // Making an API call to authenticate the user.
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+
+      // Check if the authentication was successful.
+      if (response.ok) {
+        // Upon successful authentication, navigate to the dashboard.
+        navigate('/dashboard');
+      } else {
+        // Display any error messages sent from the server.
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      // Handle potential network or server errors.
+      setError('Something went wrong. Please try again.');
+    }
   };
 
   return (
