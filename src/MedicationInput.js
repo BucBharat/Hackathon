@@ -1,3 +1,4 @@
+// Importing necessary dependencies
 import React, { useState, useContext } from 'react';
 import {
   TextField,
@@ -16,8 +17,13 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import MedicationContext from './MedicationContext';
+
+// Medication input component
 export default function MedicationInput() {
+  // Consuming the MedicationContext to get the addMedication method
   const { addMedication } = useContext(MedicationContext);
+
+  // State definitions
   const [file, setFile] = useState(null);
   const [mediaUrl, setMediaUrl] = useState('');
   const [medication, setMedication] = useState({
@@ -29,25 +35,30 @@ export default function MedicationInput() {
     phoneNumber: '',
     mediaUrl: '',
   });
+
+  // File change handler
   const handleFileChange = e => {
     setFile(e.target.files[0]);
   };
+
+  // Generic input change handler
   const handleInputChange = event => {
     const { name, value } = event.target;
     setMedication(prev => ({ ...prev, [name]: value }));
   };
 
+  // Handling date-time picker changes
   const handleDateTimeChange = newDateTime => {
     setMedication(prev => ({ ...prev, time: newDateTime }));
   };
-  // const handleFileChange = event => {
-  //   const file = event.target.files[0];
-  //   setMedication(prev => ({ ...prev, picture: file }));
-  // };
+
+  // Phone number change handler
   const handlePhoneChange = event => {
     const { value } = event.target;
     setMedication(prev => ({ ...prev, phoneNumber: value }));
   };
+
+  // File upload handler
   const handleUpload = async event => {
     event.preventDefault();
     if (!file) return;
@@ -72,6 +83,8 @@ export default function MedicationInput() {
       console.error('Error uploading file:', error);
     }
   };
+
+  // Medication submission handler
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -104,8 +117,7 @@ export default function MedicationInput() {
         mediaUrl: '',
       });
       setMediaUrl('');
-      // setFile(null);
-      // onAdd(medication);
+      // Add medication to the list
       addMedication(updatedMedication);
     } catch (error) {
       console.error('There was an error sending the medication data:', error);
@@ -113,6 +125,7 @@ export default function MedicationInput() {
     }
   };
 
+  // Rendered component
   return (
     <div style={{ minHeight: '100vh' }}>
       <Container
