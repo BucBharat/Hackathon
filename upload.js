@@ -8,8 +8,8 @@ const cors = require('cors');
 const username = '';
 const password = '';
 const client = new plivo.Client(
-  'MAOTHIODFMOWUTZMFLZS,
-  'MTEzMjI5Y2EtNTkxOS00ZDBjLWE2YjItNTM3MGYy'
+  `${username}`,
+  `${password}`
 );
 const app = express();
 const port = 5000;
