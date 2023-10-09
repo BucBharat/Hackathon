@@ -1,3 +1,4 @@
+// Required React and Material-UI imports
 import {
   Box,
   Typography,
@@ -8,10 +9,14 @@ import {
 } from '@mui/material';
 import { Alarm, Info } from '@mui/icons-material';
 import React, { useContext } from 'react';
+
+// Importing the Medication context to access the list of medications
 import MedicationContext from './MedicationContext';
 import CardContent from '@mui/material/CardContent';
 
+// Component to display and view user medications
 export function ViewMedications() {
+  // Destructuring the list of medications from the context
   const { medications } = useContext(MedicationContext);
 
   return (
