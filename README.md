@@ -71,9 +71,9 @@ git clone https://github.com/BucBharat/Hackathon.git   # Clone the repository
 cd Hackathon                                          # Move to the project directory
 npm install                                           # Install all necessary dependencies
 npm run start                                         # Kickstart the application
-npm upload.js                                         # Manage media uploads
-npm reminder.js                                       # Handle SMS reminders
-npm server.js                                         # Fire up the database server
+node upload.js                                         # Manage media uploads
+node reminder.js                                       # Handle SMS reminders
+node server.js                                         # Fire up the database server
 ```
 
 ## 👩‍💻 How to Use
