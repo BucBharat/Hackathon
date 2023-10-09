@@ -92,8 +92,6 @@ node server.js                                         # Fire up the database se
 
 ## AgelessAid App Functionality
 
-Given the components and information provided, here's an outline of the AgelessAid app's functionality:
-
 ### 1. User Registration (`Register` component):
 
 - Allows new users to create an account by providing their name, email, and password.
