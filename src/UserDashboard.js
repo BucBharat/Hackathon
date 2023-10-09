@@ -143,7 +143,7 @@ export default function UserDashboard() {
         <MedicationInput />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <Notifs />
+        Your Notifications
       </TabPanel>
     </div>
   );

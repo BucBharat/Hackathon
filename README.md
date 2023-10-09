@@ -90,6 +90,44 @@ node server.js                                         # Fire up the database se
 1. Click on the "View Medications" option.
 2. A list showcases all added medications for easy reference.
 
+## AgelessAid App Functionality
+
+Given the components and information provided, here's an outline of the AgelessAid app's functionality:
+
+### 1. User Registration (`Register` component):
+
+- Allows new users to create an account by providing their name, email, and password.
+- Sends user data to a backend server for registration.
+- Upon successful registration, users are navigated to a dashboard.
+
+### 2. User Login (`LoginScreen` component ):
+
+- Existing users can log into their account by entering their email and password.
+- Validates user credentials against the backend server.
+- If login is successful, users access their dashboard or a personalized space in the app.
+
+### 3. User Dashboard (`UserDashboard` component):
+
+- Acts as a central hub or homepage for logged-in users.
+- Likely displays user-specific information, potentially including an overview of medications, notifications, or other pertinent data.
+- Provides navigation or access points to other functionalities, such as adding medications or viewing notifications.
+
+### 4. Add Medications (`MedicationInput` component):
+
+- Users can input and save details about their medications.
+- This could include medication names, dosages, timings, and other relevant information.
+- Helps users keep track of their medications and ensures they take the right dosage at the right time.
+
+### 5. View Medications (`ViewMedications` component):
+
+- Displays a list or overview of all medications a user has added.
+- Users can review details, modify entries, or perhaps even set reminders for when to take each medication.
+
+### 6. Medication Context (`MedicationContext` component):
+
+- Suggests the app might be using the React Context API.
+- Provides a way to share medication-related data across multiple components without passing props down manually at every level.
+
 ## 🔐 Stay Secure
 
 Security is non-negotiable. AgelessAid uses bcrypt for encrypting passwords, ensuring that user information remains confidential and uncompromised.
